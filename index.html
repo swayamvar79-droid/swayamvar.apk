@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swayamvar - Wedding & Event Booking + Buy & Sell Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #d81b60;
+            --secondary: #8e24aa;
+            --accent: #ff9e00;
+            --light: #f8bbd0;
+            --dark: #880e4f;
+            --text: #333;
+            --background: #fff;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-accent: linear-gradient(135deg, var(--primary), var(--accent));
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--gradient);
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-3d {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+            transform: perspective(500px) rotateY(20deg);
+            animation: floatLogo 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, #ff9e00, #ff6d00, #d81b60, #8e24aa);
+            background-size: 300% 300%;
+        }
+
+        @keyframes floatLogo {
+            0% { 
+                transform: perspective(500px) rotateY(20deg) translateY(0) rotate(0deg);
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 157, 0, 0.4);
+            }
+            50% { 
+                transform: perspective(500px) rotateY(-20deg) translateY(-5px) rotate(3deg);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25), 0 0 25px rgba(255, 157, 0, 0.5);
+            }
+            100% { 
+                transform: perspective(500px) rotateY(20deg) translateY(0) rotate(0deg);
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 157, 0, 0.4);
+            }
+        }
+
+        .logo-3d:before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: translateX(-100%) rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(200%) rotate(45deg); }
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .logo-text:after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover .logo-text:after {
+            transform: scaleX(1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .logo-svg {
+            width: 80%;
+            height: 80%;
+            filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.3));
+        }
+
+        .logo-inner {
+            fill: url(#logo-gradient);
+            animation: pulse 2s infinite;
+        }
+
+        .logo-ring {
+            stroke: var(--gold);
+            stroke-width: 1.5;
+            fill: none;
+            animation: rotate 10s linear infinite;
+            transform-origin: center;
+        }
+
+        .logo-dots {
+            fill: white;
+            animation: blink 3s infinite;
+        }
+
+        .logo-dots:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .logo-dots:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .logo-dots:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8bbd0" opacity="0.2"/><path d="M0 0L100 100" stroke="%23d81b60" stroke-width="1" opacity="0.2"/><path d="M100 0L0 100" stroke="%23d81b60" stroke-width="1" opacity="0.2"/></svg>');
+            background-size: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--light) 0%, transparent 70%);
+            opacity: 0.3;
+            animation: rotate 30s linear infinite;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease;
+            padding: 0 10px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 30px;
+            animation: fadeInUp 1.2s ease;
+            padding: 0 15px;
+        }
+
+        .app-banner {
+            width: 90%;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin: 30px auto;
+            transition: all 0.5s ease;
+            animation: float 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+            background: var(--gradient);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-10px) rotateY(3deg); }
+            100% { transform: translateY(0px) rotateY(0deg); }
+        }
+
+        .app-banner:hover {
+            transform: translateY(-5px) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            margin: 10px 5px;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 15px rgba(216, 27, 96, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            cursor: pointer;
+            border: none;
+            min-width: 160px;
+        }
+
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-accent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover:before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(216, 27, 96, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 100%;
+            position: relative;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.5s;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary);
+            transition: all 0.3s;
+            z-index: 10;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            color: var(--secondary);
+            transform: rotate(90deg);
+        }
+
+        .modal-section {
+            margin-bottom: 20px;
+        }
+
+        .modal-section h2 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+            border-bottom: 1px solid var(--light);
+            padding-bottom: 8px;
+            font-size: 1.4rem;
+        }
+
+        .modal-section h3 {
+            color: var(--secondary);
+            margin: 12px 0 8px;
+            font-size: 1.2rem;
+        }
+
+        .modal-list {
+            padding-left: 18px;
+            margin-bottom: 12px;
+        }
+
+        .modal-list li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .features {
+            padding: 60px 0;
+            background-color: white;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            padding: 0 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            margin: 0 10px;
+        }
+
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(3deg);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 45px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotateY(180deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+        }
+
+        .video-section {
+            padding: 60px 0;
+            background-color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            transform: perspective(1000px) rotateX(3deg);
+            transition: all 0.5s ease;
+        }
+
+        .video-container:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .screenshots {
+            padding: 60px 0;
+            background-color: #f5f5f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screenshots:before {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--light) 0%, transparent 70%);
+            opacity: 0.2;
+            animation: rotateReverse 40s linear infinite;
+        }
+
+        @keyframes rotateReverse {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .screenshot {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            position: relative;
+            background: white;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            margin: 0 10px;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.03) rotateZ(1deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            z-index: 3;
+        }
+
+        .screenshot-img {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .screenshot-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .screenshot-content h3 {
+            font-size: 1.2rem;
+        }
+
+        .screenshot-content p {
+            font-size: 0.9rem;
+        }
+
+        .screenshot-caption {
+            padding: 12px 0;
+            text-align: center;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            transform: translateY(100%);
+            transition: all 0.4s ease;
+            font-size: 0.9rem;
+        }
+
+        .screenshot:hover .screenshot-caption {
+            transform: translateY(0);
+        }
+
+        .download {
+            padding: 60px 0;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="transparent"/><path d="M0 50L100 50" stroke="white" stroke-width="0.5" opacity="0.2"/><path d="M50 0L50 100" stroke="white" stroke-width="0.5" opacity="0.2"/></svg>');
+            background-size: 40px;
+            opacity: 0.1;
+        }
+
+        .download h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            padding: 0 15px;
+        }
+
+        .download p {
+            font-size: 1rem;
+            max-width: 100%;
+            margin: 0 auto 40px;
+            padding: 0 15px;
+        }
+
+        .award-badge {
+            background: linear-gradient(135deg, #ff9e00, #ff6d00);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin: 20px auto;
+            display: inline-block;
+            box-shadow: 0 6px 15px rgba(255, 157, 0, 0.3);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 15px rgba(255, 157, 0, 0.3); }
+            to { box-shadow: 0 0 20px rgba(255, 157, 0, 0.6); }
+        }
+
+        .download-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+            text-align: left;
+            max-width: 100%;
+            margin: 25px auto 0;
+        }
+
+        .download-instructions h3 {
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .download-instructions ol {
+            padding-left: 18px;
+        }
+
+        .download-instructions li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 0 20px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 12px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #555;
+            color: #ccc;
+            font-size: 0.85rem;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: var(--gradient);
+            opacity: 0.1;
+            border-radius: 50%;
+            animation: floatAround 15s infinite linear;
+        }
+
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(10px, 20px) rotate(90deg);
+            }
+            50% {
+                transform: translate(0, 40px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-10px, 20px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: var(--gradient);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            padding: 70px 20px 20px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+        }
+
+        .mobile-nav ul li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .close-mobile-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 10px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav.desktop-nav {
+                display: none;
+            }
+            
+            .logo-text {
+                font-size: 18px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 0.95rem;
+            }
+            
+            .app-banner {
+                font-size: 1.3rem;
+                padding: 30px 15px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .cta-button {
+                display: block;
+                margin: 12px auto;
+                width: 80%;
+                max-width: 250px;
+            }
+
+            .modal-content {
+                padding: 20px 15px;
+                margin: 10px auto;
+            }
+            
+            .modal-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .screenshot-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .feature-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .screenshot-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .mobile-nav {
+                display: none;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .image-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        button, .cta-button, a {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 80px; height: 80px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 20%; right: 5%; animation-delay: -2s;"></div>
+        <div class="floating-element" style="width: 60px; height: 60px; bottom: 30%; left: 10%; animation-delay: -5s;"></div>
+        <div class="floating-element" style="width: 100px; height: 100px; bottom: 10%; right: 10%; animation-delay: -7s;"></div>
+    </div>
+
+    <div class="overlay" id="navOverlay"></div>
+
+    <div class="mobile-nav" id="mobileNav">
+        <button class="close-mobile-nav" id="closeMobileNav">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="#features" onclick="closeMobileNav()">Features</a></li>
+            <li><a href="#screenshots" onclick="closeMobileNav()">Screenshots</a></li>
+            <li><a href="#video" onclick="closeMobileNav()">Video</a></li>
+            <li><a href="#download" onclick="closeMobileNav()">Download</a></li>
+            <li><a href="#contact" onclick="closeMobileNav()">Contact</a></li>
+            <li><a href="#" onclick="openModal(); closeMobileNav(); return false;">Learn More</a></li>
+        </ul>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h1 style="text-align: center; color: var(--primary); margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.6rem;">Welcome to Swayamvar</h1>
+            
+            <div class="modal-section">
+                <p style="font-size: 1rem; text-align: center; margin-bottom: 20px;">
+                    Your one-stop event booking and online marketplace! Whether you are planning a wedding, booking a party hall, arranging decorations, hiring a DJ, or simply buying and selling items online, Swayamvar makes everything easy, fast, and secure.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h2>🎉 Event Booking Made Simple</h2>
+                <p>Everything you need to plan the perfect event is just a few taps away:</p>
+                <ul class="modal-list">
+                    <li><strong>Marriage Halls & Party Venues</strong> – Book the ideal location for weddings, birthdays, engagements, and corporate events 💒</li>
+                    <li><strong>Event Decorations & Themes</strong> – Beautiful designs to match any celebration 🎀</li>
+                    <li><strong>DJs, Music & Entertainment</strong> – Hire DJs and music services to make your party unforgettable 🎧</li>
+                    <li><strong>Wedding Cars & Travel</strong> – Smooth transport for guests and special occasions 🚗</li>
+                    <li><strong>Catering & Food Services</strong> – Find trusted caterers for delicious event menus 🍽️</li>
+                    <li><strong>Photography & Videography</strong> – Capture memories with professional photographers 📸</li>
+                </ul>
+                <p>With Swayamvar, organizing events becomes stress-free, saving you time, energy, and money.</p>
+            </div>
+            
+            <div class="modal-section">
+                <h2>🛒 Buy & Sell Marketplace</h2>
+                <p>Your local online marketplace for buying, selling, and renting – all in one place!</p>
+                <ul class="modal-list">
+                    <li><strong>Mobiles & Electronics</strong> 📱 – Buy or sell smartphones, laptops, gadgets</li>
+                    <li><strong>Cars, Bikes & Vehicles</strong> 🏍️ – Get great deals on vehicles or list yours for sale</li>
+                    <li><strong>Furniture & Home Needs</strong> 🪑 – Upgrade your home affordably</li>
+                    <li><strong>Fashion & Lifestyle</strong> 👗 – Trendy clothes, footwear, jewelry, accessories</li>
+                    <li><strong>Properties & Real Estate</strong> 🏠 – Rent, buy, or sell flats, houses, and land</li>
+                    <li><strong>Books, Sports & Hobby Gear</strong> 📚 – Affordable items for learning and fun</li>
+                    <li><strong>Local Services</strong> ⚙️ – Offer or find professional services in your area</li>
+                    <li><strong>Daily Essentials & Home Goods</strong> 🛍️ – Shop everything you need in one app</li>
+                </ul>
+                <p>A safe, trusted marketplace for second-hand items, new products, and services.</p>
+            </div>
+            
+            <div class="modal-section">
+                <h2>🌟 Key Features</h2>
+                <p>Here's why thousands of users trust Swayamvar:</p>
+                <ul class="modal-list">
+                    <li>✅ Fast, easy event booking and management</li>
+                    <li>✅ Verified service providers and sellers</li>
+                    <li>✅ Secure, safe transactions with data protection 🔒</li>
+                    <li>✅ Modern, user-friendly design for smooth navigation</li>
+                    <li>✅ Built-in chat & connection with buyers and sellers</li>
+                    <li>✅ Wide range of categories – everything in one app</li>
+                    <li>✅ Free listing for sellers to reach more buyers</li>
+                </ul>
+            </div>
+            
+            <div class="modal-section">
+                <h2>👥 Who Can Use Swayamvar?</h2>
+                <ul class="modal-list">
+                    <li>Event planners & families organizing weddings, birthdays, engagements, parties</li>
+                    <li>Small business owners & vendors offering event-related services</li>
+                    <li>Buyers & sellers looking for a trusted marketplace</li>
+                    <li>Freelancers & service providers looking to connect with customers</li>
+                    <li>Anyone who wants a convenient app for bookings, shopping, and selling</li>
+                </ul>
+            </div>
+            
+            <div class="modal-section">
+                <h2>📲 Why Choose Swayamvar?</h2>
+                <ul class="modal-list">
+                    <li><strong>Convenience:</strong> Manage bookings, shopping, and selling in one place</li>
+                    <li><strong>Variety:</strong> From wedding halls to fashion products, all in one app</li>
+                    <li><strong>Trust:</strong> Verified listings and safe payments for peace of mind</li>
+                    <li><strong>Community:</strong> Build local connections and grow your business</li>
+                </ul>
+            </div>
+            
+            <div class="modal-section">
+                <h2>🔑 Popular Searches</h2>
+                <p>Use these keywords to help users find your app on APKPure and Google Play:</p>
+                <p style="font-style: italic; font-size: 0.9rem;">
+                    wedding hall booking, event planning app, marriage decoration services, DJ hire app, buy and sell app, second-hand marketplace, local services app, wedding planner India, party booking app, marriage cars booking, catering services booking, used bikes buy sell, property buy rent, online classifieds India, free listing app
+                </p>
+            </div>
+            
+            <div class="modal-section" style="text-align: center;">
+                <h2>📲 Download Now & Simplify Your Life!</h2>
+                <p>Plan your dream wedding, book trusted services, shop for essentials, or sell your products – all from one powerful app.</p>
+                <p style="font-size: 1.2rem; font-weight: bold; color: var(--primary); margin-top: 15px;">
+                    Swayamvar – Book. Buy. Sell. Simplify your life.
+                </p>
+                <button class="cta-button" onclick="downloadAPK()" style="margin-top: 20px;">
+                    <i class="fas fa-download"></i> Download Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo-3d">
+                    <svg class="logo-svg" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffd700" />
+                                <stop offset="50%" stop-color="#ffffff" />
+                                <stop offset="100%" stop-color="#ffd700" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="logo-ring" cx="50" cy="50" r="45" />
+                        <circle class="logo-ring" cx="50" cy="50" r="35" />
+                        <path class="logo-inner" d="M35,30 
+                            C40,20 60,20 65,30 
+                            C75,40 75,60 65,70 
+                            C60,80 40,80 35,70 
+                            C25,60 25,40 35,30" />
+                        <circle class="logo-dots" cx="30" cy="40" r="3" />
+                        <circle class="logo-dots" cx="50" cy="30" r="3" />
+                        <circle class="logo-dots" cx="70" cy="40" r="3" />
+                        <circle class="logo-dots" cx="70" cy="60" r="3" />
+                        <circle class="logo-dots" cx="50" cy="70" r="3" />
+                        <circle class="logo-dots" cx="30" cy="60" r="3" />
+                    </svg>
+                </div>
+                <div class="logo-text">Swayamvar</div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#screenshots">Screenshots</a></li>
+                    <li><a href="#video">Video</a></li>
+                    <li><a href="#download">Download</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Wedding & Event Booking + Buy & Sell Marketplace</h1>
+            <p>Your all-in-one platform for event planning and online marketplace</p>
+            
+            <div class="app-banner">
+                SWAYAMVAR - Booking & Buy/Sell – All-in-one app
+            </div>
+            
+            <div>
+                <button class="cta-button" onclick="downloadAPK()">
+                    <i class="fas fa-download"></i> Download APK
+                </button>
+                <button class="cta-button" onclick="openModal()" style="background: transparent; color: var(--primary); border: 2px solid var(--primary);">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">App Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Event Booking</h3>
+                    <p>Book wedding halls, decorations, DJs, catering, and more with ease.</p>
+                </div>
+                <div class="feature-card animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Marketplace</h3>
+                    <p>Buy and sell items across various categories in a secure environment.</p>
+                </div>
+                <div class="feature-card animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Transactions</h3>
+                    <p>Enjoy safe and secure payments with data protection for peace of mind.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section" id="video">
+        <div class="container">
+            <h2 class="section-title">See Swayamvar in Action</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/mNZTIbNl0cM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshots" id="screenshots">
+        <div class="container">
+            <h2 class="section-title">App Screenshots</h2>
+            <div class="screenshot-grid">
+                <div class="screenshot animate">
+                    <div class="screenshot-img">
+                        <div class="image-fallback">
+                            <i class="fas fa-image" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
+                            <div>SWAYAMVAR</div>
+                            <div>All Your Swayamvar Material is Here</div>
+                        </div>
+                    </div>
+                    <div class="screenshot-content">
+                        <h3>Complete Event Platform</h3>
+                        <p>Access all wedding and event services in one place</p>
+                    </div>
+                    <div class="screenshot-caption">Home Screen</div>
+                </div>
+                <div class="screenshot animate">
+                    <div class="screenshot-img">
+                        <div class="image-fallback">
+                            <i class="fas fa-image" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
+                            <div>SWAYAMVAR</div>
+                            <div>Wedding Halls • Decorations • Cars • DJ</div>
+                        </div>
+                    </div>
+                    <div class="screenshot-content">
+                        <h3>Vendor Listings</h3>
+                        <p>Find verified vendors for all wedding needs</p>
+                    </div>
+                    <div class="screenshot-caption">Vendor Screen</div>
+                </div>
+                <div class="screenshot animate">
+                    <div class="screenshot-img">
+                        <div class="image-fallback">
+                            <i class="fas fa-image" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
+                            <div>#1,40,000.00</div>
+                            <div>Wedding Hall • Chirauw Buzurg, Uttar Pradesh</div>
+                        </div>
+                    </div>
+                    <div class="screenshot-content">
+                        <h3>Detailed Listings</h3>
+                        <p>View pricing, location, and contact information</p>
+                    </div>
+                    <div class="screenshot-caption">Detail Screen</div>
+                </div>
+                <div class="screenshot animate">
+                    <div class="screenshot-img">
+                        <div class="image-fallback">
+                            <i class="fas fa-image" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
+                            <div>SWAYAMVAR</div>
+                            <div>Booking & Buy/Sell - All-in-one app</div>
+                        </div>
+                    </div>
+                    <div class="screenshot-content">
+                        <h3>Booking & Marketplace</h3>
+                        <p>Book services and buy/sell wedding items</p>
+                    </div>
+                    <div class="screenshot-caption">Booking Screen</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download" id="download">
+        <div class="container">
+            <h2>Download Swayamvar App Today</h2>
+            <p>Join thousands of users who have simplified their event planning and marketplace needs through our platform.</p>
+            
+            <div class="award-badge">
+                <i class="fas fa-trophy"></i> BEST WEDDING APP 2025
+            </div>
+            
+            <button class="cta-button" onclick="downloadAPK()">
+                <i class="fas fa-download"></i> Download for Android
+            </button>
+            
+            <div class="download-instructions">
+                <h3>Installation Instructions:</h3>
+                <ol>
+                    <li>Click the download button above</li>
+                    <li>Open the downloaded APK file</li>
+                    <li>If prompted, allow installation from unknown sources</li>
+                    <li>Follow the installation instructions</li>
+                    <li>Open the app and create your account</li>
+                </ol>
+                <p style="margin-top: 10px; font-size: 0.85rem;">
+                    <strong>Note:</strong> The app is currently available as a direct download. It will be available on the Google Play Store soon.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Swayamvar</h3>
+                    <p>Your all-in-one platform for event booking and online marketplace, blending tradition with technology.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#features">Features</a>
+                    <a href="#screenshots">Screenshots</a>
+                    <a href="#video">Video</a>
+                    <a href="#download">Download</a>
+                    <a href="#" onclick="openModal(); return false;">Learn More</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> swayamvar79@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +91 9555570642</p>
+                    <div class="social-icons">
+                        <a href="http://www.facebook.com/share/16Ki2aAGQB/" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/swayamver.apk?igsh=MW42ZXBmY2ZtYTI4MA==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Swayamvar App. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            const floatingContainer = document.querySelector('.floating-elements');
+            for (let i = 0; i < 6; i++) {
+                const size = Math.random() * 80 + 40;
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+                const delay = Math.random() * -20;
+                
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.top = `${top}%`;
+                element.style.left = `${left}%`;
+                element.style.animationDelay = `${delay}s`;
+                
+                floatingContainer.appendChild(element);
+            }
+        });
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMobileNavBtn = document.getElementById('closeMobileNav');
+        const mobileNav = document.getElementById('mobileNav');
+        const navOverlay = document.getElementById('navOverlay');
+        
+        function openMobileNav() {
+            mobileNav.classList.add('active');
+            navOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMobileNav() {
+            mobileNav.classList.remove('active');
+            navOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        mobileMenuBtn.addEventListener('click', openMobileNav);
+        closeMobileNavBtn.addEventListener('click', closeMobileNav);
+        navOverlay.addEventListener('click', closeMobileNav);
+        
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', closeMobileNav);
+        });
+
+        // APK Download function - Updated with Google Drive link
+        function downloadAPK() {
+            const link = document.createElement('a');
+            link.href = 'swayamvar.apk';
+            link.download = 'swayamvar.apk';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            alert('Download started! If it doesn\'t begin automatically, check your browser\'s download folder.');
+        }
+
+        const modal = document.getElementById("infoModal");
+        
+        function openModal() {
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+        
+        function closeModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+        
+        document.querySelector(".close-modal").addEventListener("click", closeModal);
+        
+        window.addEventListener("click", function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        });
+        
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
